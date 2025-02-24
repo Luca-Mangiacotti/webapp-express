@@ -1,0 +1,26 @@
+{
+  "name": "webapp-express",
+  "version": "1.0.0",
+  "description": "BE for webapp movies",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --env-file=.env app.js",
+    "watch": "node --env-file=.env --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luca-Mangiacotti/webapp-express.git"
+  },
+  "author": "Luca Mangiacotti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Luca-Mangiacotti/webapp-express/issues"
+  },
+  "homepage": "https://github.com/Luca-Mangiacotti/webapp-express#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
+  }
+}
