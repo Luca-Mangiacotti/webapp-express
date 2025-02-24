@@ -46,7 +46,23 @@ const show = (req, res) => {
         message: "MOVIE not found",
       });
     }
-    res.json(movie);
+    //query per recuperare le recensioni dell'elemento film
+    const reviewsSql = `
+    SELECT * 
+    FROM reviews
+    WHERE movie_id = ?`;
+
+    connection.execute(reviewsSql, [id], (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          error: "Query Error",
+          message: `Database query failed: ${reviewsSql}`,
+        });
+      }
+
+      movie.reviews = results;
+      res.json(movie);
+    });
   });
 };
 
