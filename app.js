@@ -1,5 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+const notFound = require("./middlewares/notFound");
+const errorsHandler = require("./middlewares/errorsHandler");
+const movieRouter = require("./routers/movieRouter");
+
 const app = express();
 const { PORT, FE_URL } = process.env;
 
@@ -14,6 +18,9 @@ app.use(
     origin: FE_URL,
   })
 );
+
+//Routes
+app.use("/movies", movieRouter);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
