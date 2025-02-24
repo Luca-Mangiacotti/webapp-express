@@ -22,6 +22,10 @@ app.use(
 //Routes
 app.use("/movies", movieRouter);
 
+//gestione degli errori
+app.use(notFound);
+app.use(errorsHandler);
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

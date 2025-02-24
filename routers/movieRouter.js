@@ -7,8 +7,8 @@ const movieController = require("../controllers/movieController");
 //Index
 router.get("/", movieController.index);
 
-// //Show
-// router.get("/:id", movieController.show);
+//Show
+router.get("/:id", movieController.show);
 
 // //Destroy
 // router.delete("/:id", movieController.destroy);
