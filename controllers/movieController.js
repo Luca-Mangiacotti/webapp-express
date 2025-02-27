@@ -14,6 +14,11 @@ const index = (req, res) => {
       });
     }
 
+    const movies = results.map((movie) => {
+      movie.image = `${process.env.BE_URL}/movies/${movie.image}`;
+      return movie;
+    });
+
     res.json(results);
   });
 };
@@ -46,9 +51,13 @@ const show = (req, res) => {
         message: "MOVIE not found",
       });
     }
+
+    //aggiungiamo il percorso dell'immagine
+    movie.image = `${process.env.BE_URL}/movies/${movie.image}`;
+
     //query per recuperare le recensioni dell'elemento film
     const reviewsSql = `
-    SELECT * 
+    SELECT reviews.name, reviews.vote, reviews.text, reviews.created_at, reviews.updated_at 
     FROM reviews
     WHERE movie_id = ?`;
 
