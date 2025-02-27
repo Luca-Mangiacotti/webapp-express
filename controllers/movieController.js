@@ -15,7 +15,7 @@ const index = (req, res) => {
     }
 
     const movies = results.map((movie) => {
-      movie.image = `${process.env.BE_URL}/movies/${movie.image}`;
+      movie.image = `${process.env.BE_URL}/images/${movie.image}`;
       return movie;
     });
 
@@ -53,7 +53,7 @@ const show = (req, res) => {
     }
 
     //aggiungiamo il percorso dell'immagine
-    movie.image = `${process.env.BE_URL}/movies/${movie.image}`;
+    movie.image = `${process.env.BE_URL}/images/${movie.image}`;
 
     //query per recuperare le recensioni dell'elemento film
     const reviewsSql = `
