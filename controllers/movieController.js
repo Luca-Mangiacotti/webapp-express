@@ -75,4 +75,32 @@ const show = (req, res) => {
   });
 };
 
-module.exports = { index, show };
+//STORE REVIEW
+const storeReview = (req, res) => {
+  //Salviamo l'id dalla rotta
+  const { id } = req.params;
+
+  //Salviamo il body della richiesta
+  const { name, vote, text, created_at } = req.body;
+
+  //Query per l'inserimento della review inserimento
+  const sql =
+    "INSERT INTO reviews (movie_id, name, text, vote, created_at) VALUES (?, ?, ?, ?, ?)";
+  //Eseguiamo la query
+  connection.execute(
+    sql,
+    [id, name, text, vote, created_at],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          error: "Query Error",
+          message: `Database query failed: ${sql}`,
+        });
+      }
+      //Restituiamo la risposta al client
+      res.status(201).json({ id: results.insertId });
+    }
+  );
+};
+
+module.exports = { index, show, storeReview };
