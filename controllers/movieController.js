@@ -57,7 +57,7 @@ const show = (req, res) => {
 
     //query per recuperare le recensioni dell'elemento film
     const reviewsSql = `
-    SELECT reviews.name, reviews.vote, reviews.text, reviews.created_at, reviews.updated_at 
+    SELECT reviews.name, reviews.vote, reviews.text, reviews.updated_at 
     FROM reviews
     WHERE movie_id = ?`;
 
@@ -81,26 +81,22 @@ const storeReview = (req, res) => {
   const { id } = req.params;
 
   //Salviamo il body della richiesta
-  const { name, vote, text, created_at } = req.body;
+  const { name, vote, text } = req.body;
 
   //Query per l'inserimento della review inserimento
   const sql =
-    "INSERT INTO reviews (movie_id, name, text, vote, created_at) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO reviews (movie_id, name, text, vote) VALUES (?, ?, ?, ?)";
   //Eseguiamo la query
-  connection.execute(
-    sql,
-    [id, name, text, vote, created_at],
-    (err, results) => {
-      if (err) {
-        return res.status(500).json({
-          error: "Query Error",
-          message: `Database query failed: ${sql}`,
-        });
-      }
-      //Restituiamo la risposta al client
-      res.status(201).json({ id: results.insertId });
+  connection.execute(sql, [id, name, text, vote], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        error: "Query Error",
+        message: `Database query failed: ${sql}`,
+      });
     }
-  );
+    //Restituiamo la risposta al client
+    res.status(201).json({ id: results.insertId });
+  });
 };
 
 module.exports = { index, show, storeReview };
